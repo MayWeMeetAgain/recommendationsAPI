@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Review page</title>
+</head>
+<body>
+<div layout:fragment="content" class="h3 text-secondary">
+    <div class="row">
+        <div class="col-md-4"><img th:src="${review.picture} + '-/scale_crop/400x300/smart/'" class="rounded card-img-top" alt="..."></div>
+        <div class="col-md-8 bg-dark rounded p-5">
+            <div class="h1" th:insert="fragments/review-templates :: review-title"></div>
+            <div th:object="${review.author}" th:insert="fragments/review-templates :: review-author">
+            </div>
+            <div>
+                <span th:text="#{review.category} + ':'"></span>
+                <span style="text-transform: lowercase;" th:text="${review.category}"></span>
+            </div>
+            <div th:id="'author_rating' + ${review.id}" class="row justify-content-md-start">
+                <span class="col-md-4" th:text="#{review.rating.author} + ': '"></span>
+                <span class="rating col-md-6" th:insert="fragments/review-templates :: stars(${review.authorRating})"></span>
+                <script src="/js/rate.js"></script>
+                <script>
+                    var authorRating = [[${review.authorRating}]]
+                    var author_id = 'author_rating' + [[${review.id}]];
+                    showRating(authorRating, author_id);
+                </script>
+            </div>
+            <div class="row justify-content-md-start">
+                <span class="col-md-4" th:text="#{review.rating.user} + ': '"></span>
+                <span th:id="'user_rating' + ${review.id}" class="col-md-6 rating" th:insert="fragments/rating :: rating"></span>
+            </div>
+            <div class="card-likes col text-end">
+                <button class="btn btn-dark btn-sm text-danger" type="button" th:onclick="'javascript:likeAction(\''+${review.id}+'\');'">
+                    <i th:id="'like-button' + ${review.id}" th:class="${review.liked} ? 'fa-heart fa-solid' : 'fa-heart fa-regular'"></i>
+                    <span th:id="'likes-amount' + ${review.id}" th:text="${review.likes}"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="container-md p-3">
+     <div class="bg-dark rounded p-5" style="min-height: 50vh;" th:utext="${review.text}"></div>
+    </div>
+</div>
+</body>
+</html>

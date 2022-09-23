@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Review</title>
+    <link rel="stylesheet" href="https://lab.lepture.com/editor/editor.css" />
+    <script type="text/javascript" src="https://lab.lepture.com/editor/editor.js"></script>
+    <script type="text/javascript" src="https://lab.lepture.com/editor/marked.js"></script>
+    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
+    <style>
+        .uploadcare--widget__button.uploadcare--widget__button_type_open {
+            background-color: #fcc914;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+        <div class="text-secondary row justify-content-md-center">
+            <div class="col-md-1"></div>
+            <form method="post" class="col-md-10">
+                <div class="row justify-content-md-around">
+                    <div class="col-md-8 px-2">
+                        <div class="form-floating mb-2">
+                            <input type="text" name="title" class="form-control" id="title" th:value="${review.title}">
+                            <label for="title">Title</label>
+                        </div>
+                        <div class="mb-2 bg-light bg-opacity-75">
+                            <div class="bg-warning bg-opacity-25">
+                                <textarea rows="5" class="form-control" name="text" id="text" placeholder="Text" th:text="${review.text}"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-2 col-md-4 px-2">
+                        <div class="bg-light mb-2 rounded p-2">
+                            <div th:each="category : ${categories}">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" th:field="${review.category}" th:value="${category}"
+                                           class="custom-control-input" style="text-transform: lowercase;" th:checked="${category == review.category}">
+                                    <label class="custom-control-label" th:for="${#ids.prev('category')}" th:text="${category}"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="dropzone" class="bg-light mb-2 rounded p-2">
+                            <input
+                                    type="hidden"
+                                    role="uploadcare-uploader"
+                                    data-public-key="611a8f27b7bbad8923ff"
+                                    data-tabs="file camera gdrive gphotos"
+                                    name="picture"
+                            />
+                        </div>
+                        <div class="bg-light mb-2 rounded p-2">
+                            <span>Rating:</span>
+                            <span><select class="form-control" name="authorRating">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="px-2"><button type="submit" class="col-md-12 btn btn-warning btn-block">Save</button></div>
+                </div>
+            </form>
+            <div class="col-md-1"></div>
+        </div>
+
+    <script>
+        var editor = new Editor({
+            element: document.getElementById("text")
+        });
+
+        editor.render();
+    </script>
+</div>
+</body>
+</html>

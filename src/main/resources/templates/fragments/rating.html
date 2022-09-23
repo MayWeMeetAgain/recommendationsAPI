@@ -1,0 +1,14 @@
+<span th:fragment="rating" class="wrap_input">
+    <span th:onclick="|rate(5, '${review.id}')|" class="star"><i class="fa-regular fa-star stars__out"><i class="fa-solid fa-star stars__in"></i></i></span>
+    <span th:onclick="|rate(4, '${review.id}')|" class="star"><i class="fa-regular fa-star stars__out"><i class="fa-solid fa-star stars__in"></i></i></span>
+    <span th:onclick="|rate(3, '${review.id}')|" class="star"><i class="fa-regular fa-star stars__out"><i class="fa-solid fa-star stars__in"></i></i></span>
+    <span th:onclick="|rate(2, '${review.id}')|" class="star"><i class="fa-regular fa-star stars__out"><i class="fa-solid fa-star stars__in"></i></i></span>
+    <span th:onclick="|rate(1, '${review.id}')|" class="star"><i class="fa-regular fa-star stars__out"><i class="fa-solid fa-star stars__in"></i></i></span>
+    <span class="rating-number" th:text="${#numbers.formatDecimal(review.usersRating, 0, 2)}"></span>
+<script src="/js/rate.js"></script>
+<script th:if="${review.isRated}" th:inline="javascript">
+    var usersRating = [[${review.usersRating}]]
+    var users_id = 'user_rating' + [[${review.id}]];
+    showRating(usersRating, users_id);
+</script>
+</span>

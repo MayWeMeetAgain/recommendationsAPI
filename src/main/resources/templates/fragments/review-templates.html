@@ -1,0 +1,20 @@
+<div th:fragment="review-title" class="card-title text-center">
+        <span th:text="${review.title}"></span><sup class="text-warning"><span class="title-rating" th:text="${#numbers.formatDecimal(review.usersRating, 0, 2)}"></span><i class="fa-solid fa-star"></i></sup>
+</div>
+
+<div th:fragment="review-author">
+    <span th:text="#{review.author} + ':'"></span>
+    <span>
+        <a class="link-warning link-capacity-50" th:href="'/user/' + *{username}" th:text="*{username}"></a>
+        <sup><span th:text="*{likes}"></span><i class="fa-solid fa-heart"></i></sup>
+    </span>
+</div>
+
+<span th:fragment="stars(rating)" class="wrap_input" >
+    <span th:onclick="|rate(5, '${review.id}')|" class="star"><i class="fa-regular fa-star stars__out"><i class="fa-solid fa-star stars__in"></i></i></span>
+    <span th:onclick="|rate(4, '${review.id}')|" class="star"><i class="fa-regular fa-star stars__out"><i class="fa-solid fa-star stars__in"></i></i></span>
+    <span th:onclick="|rate(3, '${review.id}')|" class="star"><i class="fa-regular fa-star stars__out"><i class="fa-solid fa-star stars__in"></i></i></span>
+    <span th:onclick="|rate(2, '${review.id}')|" class="star"><i class="fa-regular fa-star stars__out"><i class="fa-solid fa-star stars__in"></i></i></span>
+    <span th:onclick="|rate(1, '${review.id}')|" class="star"><i class="fa-regular fa-star stars__out"><i class="fa-solid fa-star stars__in"></i></i></span>
+    <span class="rating-number" th:text="${#numbers.formatDecimal(rating, 0, 2)}"></span>
+</span>

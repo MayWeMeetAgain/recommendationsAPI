@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+</head>
+<body>
+<div layout:fragment="content" class="text-center">
+    <div style="display: flex; flex-direction: row; flex-wrap: wrap;" id="cards_list" th:insert="fragments/card :: card"></div>
+</div>
+</body>
+</html>

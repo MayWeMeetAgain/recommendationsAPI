@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>header</title>
+</head>
+<body>
+<header th:fragment="header">
+    <div class="p-2 bg-dark text-white">
+        <div class="d-flex flex-wrap align-items-center justify-content-lg-start">
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a th:href="@{/}" class="nav-link px-2 text-secondary" th:text="#{menu.home}"></a></li>
+                <li><a class="btn btn-warning mx-2" th:href="@{/review/add}" th:text="#{button.add}"></a></li>
+            </ul>
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" th:action="@{/search}">
+                <input type="search" name="search" id="search" class="form-control form-control-dark bg-dark text-secondary" th:placeholder="#{search} + '...'" aria-label="Search">
+            </form>
+            <div class="lang-switcher m-2">
+                <a class="text-warning" href="/?lang=en">eng</a>
+                <span> | </span>
+                <a class="text-warning" href="/?lang=ru">rus</a>
+            </div>
+            <div class="text-end m-2" sec:authorize="!isAuthenticated()">
+                <a class="btn btn-outline-light me-2" th:href="@{/login}" th:text="#{menu.sign_in}"></a>
+                <a class="btn btn-warning" th:href="@{/registration}" th:text="#{menu.sign_up}"></a>
+            </div>
+            <div class="text-end" sec:authorize="isAuthenticated()">
+                <div class="btn-group">
+                    <a type="button" class="text-warning me-2" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-circle-user fa-2xl"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{'/user/' + ${#authentication.name}}" th:text="#{menu.my_page}"></a></li>
+                        <li sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a class="dropdown-item" th:href="@{/admin}" th:text="#{menu.admin_page}"></a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><form  th:action="@{/logout}" method="post">
+                            <input class="dropdown-item" type="submit" th:value="#{menu.log_out}">
+                        </form></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+</body>
+</html>

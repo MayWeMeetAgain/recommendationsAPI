@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>User page</title>
+</head>
+<body>
+<div layout:fragment="content">
+     <span>
+        <a class="link-warning link-capacity-50" th:href="'/user/' + ${user.username}" th:text="${user.username}"></a>
+        <sup><span th:text="${user.likes}"></span><i class="fa-solid fa-heart"></i></sup>
+    </span>
+    <div class="text-center" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center;" id="cards_list" th:insert="fragments/card :: card">
+    </div>
+</div>
+</body>
+</html>
